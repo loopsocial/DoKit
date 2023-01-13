@@ -243,37 +243,43 @@ import okhttp3.Request
 
 task cleanGithubPackages {
     doLast {
+        def token = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
         def client = new OkHttpClient().newBuilder()
             .build();
         def mediaType = MediaType.parse("text/plain");
         def request = new Request.Builder()
-            .url("https://api.github.com/orgs/loopsocial/packages?package_type=maven")
+            .url("https://api.github.com/orgs/loopsocial/packages?package_type=maven&per_page=100")
             .method("GET", null)
-            .addHeader("Authorization", "token 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")
+            .addHeader("Authorization", "token $token")
             .addHeader("Accept", "application/vnd.github+json")
             .build();
         def response = client.newCall(request).execute();
         def body = response.body().string()
         def result = new groovy.json.JsonSlurper().parseText(body)
+
         result.forEach {
             println it.name
+            boolean isTarget = it.name.startsWith("com.loopnow.library.dokit")||it.name.startsWith("com.loopnow.dokit")
+            if (!isTarget){
+                return
+            }
             request = new Request.Builder()
                 .url("https://api.github.com/orgs/loopsocial/packages/maven/${it.name}/versions")
                 .method("GET", null)
-                .addHeader("Authorization", "token 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")
+                .addHeader("Authorization", "token $token")
                 .addHeader("Accept", "application/vnd.github+json")
                 .build()
             response = client.newCall(request).execute();
             def versionResult = new JsonSlurper().parseText(response.body.string())
             versionResult.forEach { ver ->
-                if (ver.name == "3.7.0.5") {
+                if (ver.name == "3.7.0.5"||ver.name == "3.7.0.6") {
                     if (versionResult.size() > 1) {
                         println ver.id
                         println "DELETE https://api.github.com/orgs/loopsocial/packages/maven/${it.name}/versions/${ver.id}"
                         def deleteRequest = new Request.Builder()
                             .url("https://api.github.com/orgs/loopsocial/packages/maven/${it.name}/versions/${ver.id}")
                             .method("DELETE", null)
-                            .addHeader("Authorization", "token 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")
+                            .addHeader("Authorization", "token $token")
                             .addHeader("Accept", "application/vnd.github+json")
                             .build();
                         def deleteResponse = client.newCall(deleteRequest).execute();
@@ -285,7 +291,7 @@ task cleanGithubPackages {
                         def deleteRequest = new Request.Builder()
                             .url("https://api.github.com/orgs/loopsocial/packages/maven/${it.name}")
                             .method("DELETE", null)
-                            .addHeader("Authorization", "token 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")
+                            .addHeader("Authorization", "token $token")
                             .addHeader("Accept", "application/vnd.github+json")
                             .build();
                         def deleteResponse = client.newCall(deleteRequest).execute();
