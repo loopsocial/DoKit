@@ -1,0 +1,24 @@
+name: Publish libraries to Github Maven
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Publish libraries
+        env:
+          MVN_USER: ${{ secrets.MVN_USER }}
+          MVN_GITHUB: ${{ secrets.MVN_GITHUB }}
+        run:
+          ./upload_local.sh -Pgpr.user=$MVN_USER -Pgpr.key=$MVN_GITHUB
