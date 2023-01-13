@@ -26,19 +26,19 @@ RES="\033[0m"
 ./gradlew :dokit-weex:assembleRelease --stacktrace
 ./gradlew :dokit-pthread-hook:assembleRelease --stacktrace
 ./gradlew :dokit-gps-mock:assembleRelease --stacktrace
-#publish
-./gradlew :dokit-plugin:publish --stacktrace
-./gradlew :dokit:publish --stacktrace
-./gradlew :dokit-no-op:publish --stacktrace
-./gradlew :dokit-okhttp-api:publish --stacktrace
-./gradlew :dokit-okhttp-v3:publish --stacktrace
-./gradlew :dokit-okhttp-v4:publish --stacktrace
-./gradlew :dokit-ft:publish --stacktrace
-./gradlew :dokit-test:publish --stacktrace
-./gradlew :dokit-autotest:publish --stacktrace
-./gradlew :dokit-mc:publish --stacktrace
-./gradlew :dokit-util:publish --stacktrace
-./gradlew :dokit-weex:publish --stacktrace
-./gradlew :dokit-pthread-hook:publish --stacktrace
-./gradlew :dokit-gps-mock:publish --stacktrace
-echo -e "${GREEN_COLOR}本地打包完成！！！${RES}"
+#publishReleasePublicationToGitHubPackagesRepository
+./gradlew :dokit-plugin:publishReleasePublicationToGitHubPackagesRepository --stacktrace -Pgpr.user=$MVN_USER -Pgpr.key=$MVN_GITHUB
+./gradlew :dokit:publishReleasePublicationToGitHubPackagesRepository --stacktrace -Pgpr.user=$MVN_USER -Pgpr.key=$MVN_GITHUB
+./gradlew :dokit-no-op:publishReleasePublicationToGitHubPackagesRepository --stacktrace -Pgpr.user=$MVN_USER -Pgpr.key=$MVN_GITHUB
+./gradlew :dokit-okhttp-api:publishReleasePublicationToGitHubPackagesRepository --stacktrace -Pgpr.user=$MVN_USER -Pgpr.key=$MVN_GITHUB
+./gradlew :dokit-okhttp-v3:publishReleasePublicationToGitHubPackagesRepository --stacktrace -Pgpr.user=$MVN_USER -Pgpr.key=$MVN_GITHUB
+./gradlew :dokit-okhttp-v4:publishReleasePublicationToGitHubPackagesRepository --stacktrace -Pgpr.user=$MVN_USER -Pgpr.key=$MVN_GITHUB
+./gradlew :dokit-ft:publishReleasePublicationToGitHubPackagesRepository --stacktrace -Pgpr.user=$MVN_USER -Pgpr.key=$MVN_GITHUB
+./gradlew :dokit-test:publishReleasePublicationToGitHubPackagesRepository --stacktrace -Pgpr.user=$MVN_USER -Pgpr.key=$MVN_GITHUB
+./gradlew :dokit-autotest:publishReleasePublicationToGitHubPackagesRepository --stacktrace -Pgpr.user=$MVN_USER -Pgpr.key=$MVN_GITHUB
+./gradlew :dokit-mc:publishReleasePublicationToGitHubPackagesRepository --stacktrace -Pgpr.user=$MVN_USER -Pgpr.key=$MVN_GITHUB
+./gradlew :dokit-util:publishReleasePublicationToGitHubPackagesRepository --stacktrace -Pgpr.user=$MVN_USER -Pgpr.key=$MVN_GITHUB
+./gradlew :dokit-weex:publishReleasePublicationToGitHubPackagesRepository --stacktrace -Pgpr.user=$MVN_USER -Pgpr.key=$MVN_GITHUB
+./gradlew :dokit-pthread-hook:publishReleasePublicationToGitHubPackagesRepository --stacktrace -Pgpr.user=$MVN_USER -Pgpr.key=$MVN_GITHUB
+./gradlew :dokit-gps-mock:publishReleasePublicationToGitHubPackagesRepository --stacktrace -Pgpr.user=$MVN_USER -Pgpr.key=$MVN_GITHUB
+echo -e "${GREEN_COLOR}本地打包完成！！！${RES}" -Pgpr.user=$MVN_USER -Pgpr.key=$MVN_GITHUB

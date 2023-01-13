@@ -1,0 +1,5 @@
+before_install:
+install:
+  - echo "Running a custom install command"
+  - cd Android
+  - ./upload_local.sh

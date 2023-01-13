@@ -3,6 +3,7 @@ import org.json.JSONObject
 
 //本地或者滴滴内部仓库打包脚本(插件需要单独区分)
 apply plugin: 'maven-publish'
+group = 'com.didichuxing.doraemonkit'
 def PUBLISH_ARCHIVES_TYPE = rootProject.ext.publish_config["archives_type"]
 def DOKIT_VERSION = rootProject.ext.publish_config["version"]
 def DOKIT_GROUP_ID = rootProject.ext.publish_config["group_id"]
@@ -58,7 +59,7 @@ afterEvaluate {
                     name = project.ARTIFACT_ID
                     description = 'DoKit is an efficiency platform for the entire life cycle of general front-end product research and development.'
                     // If your project has a dedicated site, use its URL here
-                    url = 'https://github.com/didi/DoraemonKit'
+                    url = 'https://github.com/loopsocial/Dokit-Android'
                     licenses {
                         license {
                             name = 'The Apache License, Version 2.0'
@@ -67,16 +68,16 @@ afterEvaluate {
                     }
                     developers {
                         developer {
-                            id = 'OrangeLab'
-                            name = 'Orange Lab'
-                            email = 'orange-lab@didiglobal.com'
+                            id = 'zhengzhou'
+                            name = 'zhengfw'
+                            email = 'zheng@fireworkhq.com'
                         }
                     }
                     // Version control info, if you're using GitHub, follow the format as seen here
                     scm {
-                        connection = 'scm:git:git://github.com/didi/DoraemonKit.git'
-                        developerConnection = 'scm:git:ssh://github.com/didi/DoraemonKit.git'
-                        url = 'https://github.com/didi/DoraemonKit/tree/master'
+                        connection = 'scm:git:git://github.com/loopsocial/Dokit-Android.git'
+                        developerConnection = 'scm:git:ssh://github.com/loopsocial/Dokit-Android.git'
+                        url = 'https://github.com/loopsocial/Dokit-Android/tree/master'
                     }
                     // A slightly hacky fix so that your POM will include any transitive dependencies
                     // that your library builds upon
@@ -107,27 +108,14 @@ afterEvaluate {
         repositories {
             // The repository to publish to, Sonatype/MavenCentral
             maven {
-                // This is an arbitrary name, you may also use "mavencentral" or
-                // any other name that's descriptive for you
-                name = "mavenCentral"
-
-                // You only need this if you want to publish snapshots, otherwise just set the URL
-                // to the release repo directly
-                if(PUBLISH_ARCHIVES_TYPE == 0){
-                    url = LOCAL_REPOSITORY_URL
-                }else  if(PUBLISH_ARCHIVES_TYPE ==1 ){
-                    url = DIDI_REPOSITORY_URL
-                }
-
-
-                // The username and password we've fetched earlier
-                if (PUBLISH_ARCHIVES_TYPE == 1) {
-                    credentials {
-                        username USERNAME
-                        password PASSWORD
-                    }
+                name = "GitHubPackages"
+                url = uri("https://maven.pkg.github.com/loopsocial/Dokit-Android")
+                credentials {
+                    username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                    password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
                 }
             }
         }
     }
 }
+
