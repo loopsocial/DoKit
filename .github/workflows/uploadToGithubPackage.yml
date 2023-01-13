@@ -21,4 +21,4 @@ jobs:
           MVN_USER: ${{ secrets.MVN_USER }}
           MVN_GITHUB: ${{ secrets.MVN_GITHUB }}
         run:
-          cd Android & ./upload_local.sh -Pgpr.user=$MVN_USER -Pgpr.key=$MVN_GITHUB
+          ./buildGithubPackage.sh

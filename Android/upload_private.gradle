@@ -59,7 +59,7 @@ afterEvaluate {
                     name = project.ARTIFACT_ID
                     description = 'DoKit is an efficiency platform for the entire life cycle of general front-end product research and development.'
                     // If your project has a dedicated site, use its URL here
-                    url = 'https://github.com/loopsocial/Dokit-Android'
+                    url = 'https://github.com/loopsocial/DoKit'
                     licenses {
                         license {
                             name = 'The Apache License, Version 2.0'
@@ -75,9 +75,9 @@ afterEvaluate {
                     }
                     // Version control info, if you're using GitHub, follow the format as seen here
                     scm {
-                        connection = 'scm:git:git://github.com/loopsocial/Dokit-Android.git'
-                        developerConnection = 'scm:git:ssh://github.com/loopsocial/Dokit-Android.git'
-                        url = 'https://github.com/loopsocial/Dokit-Android/tree/master'
+                        connection = 'scm:git:git://github.com/loopsocial/DoKit.git'
+                        developerConnection = 'scm:git:ssh://github.com/loopsocial/DoKit.git'
+                        url = 'https://github.com/loopsocial/DoKit/tree/master'
                     }
                     // A slightly hacky fix so that your POM will include any transitive dependencies
                     // that your library builds upon
@@ -109,7 +109,7 @@ afterEvaluate {
             // The repository to publish to, Sonatype/MavenCentral
             maven {
                 name = "GitHubPackages"
-                url = uri("https://maven.pkg.github.com/loopsocial/Dokit-Android")
+                url = uri("https://maven.pkg.github.com/loopsocial/DoKit")
                 credentials {
                     username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
                     password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
