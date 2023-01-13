@@ -45,44 +45,44 @@ public class DokitMockInterceptor extends AbsDoKitInterceptor {
     public Response intercept(Chain chain) throws IOException {
         Request oldRequest = chain.request();
         Response oldResponse = chain.proceed(oldRequest);
-        String contentType = oldResponse.header("Content-Type");
-        //如果是图片则不进行拦截
-        if (InterceptorUtil.isImg(contentType)) {
-            return oldResponse;
-        }
-        HttpUrl url = oldRequest.url();
-        String host = url.host();
-        //如果是mock平台的接口则不进行拦截
-        if (host.equalsIgnoreCase(NetworkManager.MOCK_HOST)) {
-            return oldResponse;
-        }
-
-        //path  /test/upload/img
-        String path = URLDecoder.decode(url.encodedPath(), "utf-8");
-        String queries = url.query();
-        String jsonQuery = transformQuery(queries);
-        String jsonRequestBody = transformRequestBody(oldRequest.body());
-        //LogHelper.i(TAG, "realJsonQuery===>" + jsonQuery);
-        //LogHelper.i(TAG, "realJsonRequestBody===>" + jsonRequestBody);
-        String interceptMatchedId = DokitDbManager.getInstance().isMockMatched(path, jsonQuery, jsonRequestBody, DokitDbManager.MOCK_API_INTERCEPT, DokitDbManager.FROM_SDK_OTHER);
-        String templateMatchedId = DokitDbManager.getInstance().isMockMatched(path, jsonQuery, jsonRequestBody, DokitDbManager.MOCK_API_TEMPLATE, DokitDbManager.FROM_SDK_OTHER);
-        try {
-            //网络的健康体检功能 统计流量大小
-            if (DoKitManager.APP_HEALTH_RUNNING) {
-                addNetWokInfoInAppHealth(oldRequest, oldResponse);
-            }
-
-            //是否命中拦截规则
-            if (!TextUtils.isEmpty(interceptMatchedId)) {
-                return matchedInterceptRule(url, path, interceptMatchedId, templateMatchedId, oldRequest, oldResponse, chain);
-            }
-
-            //是否命中模板规则
-            matchedTemplateRule(oldResponse, path, templateMatchedId);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        String contentType = oldResponse.header("Content-Type");
+//        //如果是图片则不进行拦截
+//        if (InterceptorUtil.isImg(contentType)) {
+//            return oldResponse;
+//        }
+//        HttpUrl url = oldRequest.url();
+//        String host = url.host();
+//        //如果是mock平台的接口则不进行拦截
+//        if (host.equalsIgnoreCase(NetworkManager.MOCK_HOST)) {
+//            return oldResponse;
+//        }
+//
+//        //path  /test/upload/img
+//        String path = URLDecoder.decode(url.encodedPath(), "utf-8");
+//        String queries = url.query();
+//        String jsonQuery = transformQuery(queries);
+//        String jsonRequestBody = transformRequestBody(oldRequest.body());
+//        //LogHelper.i(TAG, "realJsonQuery===>" + jsonQuery);
+//        //LogHelper.i(TAG, "realJsonRequestBody===>" + jsonRequestBody);
+//        String interceptMatchedId = DokitDbManager.getInstance().isMockMatched(path, jsonQuery, jsonRequestBody, DokitDbManager.MOCK_API_INTERCEPT, DokitDbManager.FROM_SDK_OTHER);
+//        String templateMatchedId = DokitDbManager.getInstance().isMockMatched(path, jsonQuery, jsonRequestBody, DokitDbManager.MOCK_API_TEMPLATE, DokitDbManager.FROM_SDK_OTHER);
+//        try {
+//            //网络的健康体检功能 统计流量大小
+//            if (DoKitManager.APP_HEALTH_RUNNING) {
+//                addNetWokInfoInAppHealth(oldRequest, oldResponse);
+//            }
+//
+//            //是否命中拦截规则
+//            if (!TextUtils.isEmpty(interceptMatchedId)) {
+//                return matchedInterceptRule(url, path, interceptMatchedId, templateMatchedId, oldRequest, oldResponse, chain);
+//            }
+//
+//            //是否命中模板规则
+//            matchedTemplateRule(oldResponse, path, templateMatchedId);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         return oldResponse;
     }
 
